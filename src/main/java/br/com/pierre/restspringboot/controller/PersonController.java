@@ -1,6 +1,5 @@
 package br.com.pierre.restspringboot.controller;
 
-import br.com.pierre.restspringboot.exception.Unsuported;
 import br.com.pierre.restspringboot.math.SimpleMat;
 import br.com.pierre.restspringboot.model.Person;
 import br.com.pierre.restspringboot.services.PersonServices;
@@ -9,7 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static org.hibernate.query.criteria.internal.ValueHandlerFactory.isNumeric;
 
@@ -30,7 +28,7 @@ public class PersonController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") String id) {
+    public Person findById(@PathVariable Long id) {
        return services.finndById(id);
     }
 
@@ -49,7 +47,7 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-         public void  delete(@PathVariable("id") String id) {
+         public void  delete(@PathVariable("id") Long id) {
          services.delete(id);
     }
 }

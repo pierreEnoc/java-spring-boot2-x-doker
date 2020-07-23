@@ -1,7 +1,7 @@
 package br.com.pierre.restspringboot.exception.handler;
 
 import br.com.pierre.restspringboot.exception.ExceptionResponse;
-import br.com.pierre.restspringboot.exception.Unsuported;
+import br.com.pierre.restspringboot.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +26,7 @@ public class CUstomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new  ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(Unsuported.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequesException(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(

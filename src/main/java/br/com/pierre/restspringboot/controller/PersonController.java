@@ -4,12 +4,10 @@ import br.com.pierre.restspringboot.math.SimpleMat;
 import br.com.pierre.restspringboot.model.Person;
 import br.com.pierre.restspringboot.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.hibernate.query.criteria.internal.ValueHandlerFactory.isNumeric;
 
 @RestController
 @RequestMapping("/person")
@@ -20,34 +18,29 @@ public class PersonController {
 
     private SimpleMat math = new SimpleMat();
 
-    @RequestMapping(method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findByAll() {
+    @GetMapping
+        public List<Person> findByAll() {
         return services.findAll();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/{id}")
     public Person findById(@PathVariable Long id) {
        return services.finndById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public Person create(@RequestBody Person person) {
         return services.create(person);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping
     public Person update(@RequestBody Person person) {
         return services.update(person);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-         public void  delete(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+         public ResponseEntity<?>  delete(@PathVariable("id") Long id) {
          services.delete(id);
+         return ResponseEntity.ok().build();
     }
 }
